@@ -1,0 +1,70 @@
+{
+  "benchmark_name": "NoBugs AI Evaluation Suite v1.0",
+  "created_at": "2026-10-14T10:00:00Z",
+  "cases": [
+    {
+      "id": "eval-case-01",
+      "scenario": "postgres_pool",
+      "file_path": "sample_logs/postgres_pool_exhaustion_504.log",
+      "description": "PostgreSQL connection pool exhaustion with cascading 504 gateway timeouts",
+      "expected": {
+        "min_error_events": 5,
+        "primary_error_type": "DatabasePoolExhaustion",
+        "expected_severity": "Critical",
+        "initiating_component": "postgres-db",
+        "downstream_symptoms_present": true,
+        "expected_root_cause_keywords": ["pool", "connection", "exhaust", "timeout"],
+        "max_hallucinated_event_ids": 0,
+        "secrets_must_be_redacted": ["superSecretDbPassword2026!", "signature123"]
+      }
+    },
+    {
+      "id": "eval-case-02",
+      "scenario": "microservices_cascade",
+      "file_path": "sample_logs/microservices_cascade_failure.log",
+      "description": "Authentication service token expiration and key rotation sync storm",
+      "expected": {
+        "min_error_events": 4,
+        "primary_error_type": "AuthenticationError",
+        "expected_severity": "High",
+        "initiating_component": "auth-service",
+        "downstream_symptoms_present": true,
+        "expected_root_cause_keywords": ["token", "auth", "expire", "key"],
+        "max_hallucinated_event_ids": 0,
+        "secrets_must_be_redacted": ["secretKey123"]
+      }
+    },
+    {
+      "id": "eval-case-03",
+      "scenario": "oom_crash",
+      "file_path": "sample_logs/oom_worker_crash.log",
+      "description": "Worker process OutOfMemory crash from unpaginated batch ETL ingestion",
+      "expected": {
+        "min_error_events": 2,
+        "primary_error_type": "OutOfMemoryError",
+        "expected_severity": "Critical",
+        "initiating_component": "batch-etl-worker",
+        "downstream_symptoms_present": true,
+        "expected_root_cause_keywords": ["heap", "memory", "oom", "batch"],
+        "max_hallucinated_event_ids": 0,
+        "secrets_must_be_redacted": []
+      }
+    },
+    {
+      "id": "eval-case-04",
+      "scenario": "webhook_crypto",
+      "file_path": "sample_logs/payment_webhook_crypto_error.log",
+      "description": "Stripe webhook cryptographic verification failure due to NTP clock drift",
+      "expected": {
+        "min_error_events": 2,
+        "primary_error_type": "HTTPError",
+        "expected_severity": "High",
+        "initiating_component": "payment-webhook-handler",
+        "downstream_symptoms_present": true,
+        "expected_root_cause_keywords": ["signature", "webhook", "timestamp"],
+        "max_hallucinated_event_ids": 0,
+        "secrets_must_be_redacted": ["sk_test_mock_stripe_key_example_token_99"]
+      }
+    }
+  ]
+}

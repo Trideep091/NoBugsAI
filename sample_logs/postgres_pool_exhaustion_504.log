@@ -1,0 +1,26 @@
+2026-10-14 08:00:15.102 [INFO] [web-gateway] [trace_id=tr-init-001] GET /health HTTP/1.1 200 OK
+2026-10-14 08:15:32.411 [INFO] [auth-service] [trace_id=tr-auth-042] Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ1c2VyLTEwMSJ9.signature123 verified successfully
+2026-10-14 08:30:00.000 [INFO] [checkout-api] [trace_id=tr-chk-100] User checkout initiated for cart_id=cart-9021
+2026-10-14 08:45:10.512 [INFO] [postgres-db] Periodic vacuum completed on table inventory_reservations
+2026-10-14 09:00:22.180 [INFO] [checkout-api] [trace_id=tr-chk-102] Querying inventory with host=10.0.1.20, password=superSecretDbPassword2026!
+2026-10-14 09:15:00.000 [WARN] [postgres-db] Active connections in pool: 95/100 (high utilization warning)
+2026-10-14 09:28:44.200 [WARN] [checkout-api] Slow query detected on orders table (duration=4520ms)
+2026-10-14 09:30:12.304 [ERROR] [postgres-db] connection pool exhausted: maximum 100 connections reached. Queue length=45
+2026-10-14 09:30:15.420 [ERROR] [checkout-api] [trace_id=tr-chk-201] OperationalError: (psycopg2.OperationalError) timeout waiting for connection from pool after 30.0s
+Traceback (most recent call last):
+  File "/app/services/checkout.py", line 184, in create_order
+    with db.get_connection() as conn:
+  File "/usr/local/lib/python3.11/site-packages/sqlalchemy/pool/base.py", line 378, in connect
+    return self._checkout(timeout)
+sqlalchemy.exc.OperationalError: connection pool exhausted
+2026-10-14 09:30:20.100 [ERROR] [web-gateway] [trace_id=tr-chk-201] HTTP 504 Gateway Timeout POST /api/v1/checkout duration=30005ms
+2026-10-14 09:31:02.115 [ERROR] [checkout-api] [trace_id=tr-chk-202] OperationalError: (psycopg2.OperationalError) timeout waiting for connection from pool after 30.0s
+2026-10-14 09:31:05.882 [ERROR] [web-gateway] [trace_id=tr-chk-202] HTTP 504 Gateway Timeout POST /api/v1/checkout duration=30002ms
+2026-10-14 09:32:40.500 [ERROR] [checkout-api] [trace_id=tr-chk-203] OperationalError: (psycopg2.OperationalError) timeout waiting for connection from pool after 30.0s
+2026-10-14 09:32:45.100 [ERROR] [web-gateway] [trace_id=tr-chk-203] HTTP 504 Gateway Timeout POST /api/v1/checkout duration=30004ms
+2026-10-14 09:45:00.000 [WARN] [checkout-api] Circuit breaker OPEN for target 'postgres-primary'
+2026-10-14 10:00:15.000 [WARN] [postgres-db] Terminating idle in transaction connection PID 48102 holding lock on orders
+2026-10-14 10:15:30.000 [INFO] [postgres-db] Active connections in pool dropped to 35/100
+2026-10-14 10:30:00.000 [INFO] [checkout-api] Circuit breaker half-open: probing connection to 'postgres-primary'
+2026-10-14 10:45:12.000 [INFO] [checkout-api] Connection pool acquired successfully, circuit breaker CLOSED
+2026-10-14 11:30:00.000 [INFO] [web-gateway] Health check status 200 OK. Error rate returned to 0.00%

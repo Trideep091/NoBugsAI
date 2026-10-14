@@ -1,0 +1,12 @@
+2026-10-14 08:00:00.000 [INFO] [ingress-proxy] Routing traffic to cluster us-east-1
+2026-10-14 08:30:15.000 [INFO] [auth-service] Scheduled key rotation triggered for JWT verification keys
+2026-10-14 09:00:00.000 [WARN] [auth-service] Key rotation sync delay with secondary replica nodes (HTTP 408)
+2026-10-14 09:30:10.120 [ERROR] [auth-service] [trace_id=tr-auth-901] 401 Unauthorized: Signature has expired for token Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIn0.secretKey123
+2026-10-14 09:30:12.450 [ERROR] [order-processor] [trace_id=tr-auth-901] Failed to process order: downstream auth rejected token
+2026-10-14 09:30:15.900 [ERROR] [inventory-service] [trace_id=tr-auth-901] Rejecting inventory check: 401 Unauthorized
+2026-10-14 09:31:00.100 [ERROR] [auth-service] [trace_id=tr-auth-902] 401 Unauthorized: Signature has expired for token
+2026-10-14 09:31:02.300 [ERROR] [order-processor] [trace_id=tr-auth-902] Failed to process order: downstream auth rejected token
+2026-10-14 09:35:00.000 [WARN] [order-processor] Retry budget exhausted for authentication tokens. Dropping 12 requests.
+2026-10-14 10:15:00.000 [INFO] [auth-service] Public JWKS cache purged on all replica pods
+2026-10-14 10:45:00.000 [INFO] [order-processor] Token validation succeeded for refreshed client session
+2026-10-14 11:30:00.000 [INFO] [ingress-proxy] Ingress HTTP error rate 0.00% across all routes

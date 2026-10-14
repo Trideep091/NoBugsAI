@@ -1,0 +1,10 @@
+2026-10-14 08:00:00.000 [INFO] [stripe-gateway] Listening for webhook events at endpoint /api/v1/webhooks/stripe
+2026-10-14 08:30:00.000 [INFO] [stripe-gateway] Processed invoice.payment_succeeded for customer cus_991024
+2026-10-14 09:00:00.000 [INFO] [stripe-gateway] Secret key configured: sk_test_mock_stripe_key_example_token_99
+2026-10-14 09:15:22.000 [ERROR] [payment-webhook-handler] [trace_id=tr-wh-401] StripeSignatureVerificationError: Signature verification failed. Header timestamp outside tolerance zone.
+2026-10-14 09:15:25.000 [ERROR] [stripe-gateway] [trace_id=tr-wh-401] HTTP 400 Bad Request: Invalid webhook signature. Dropping event evt_3N829104
+2026-10-14 09:16:00.000 [ERROR] [payment-webhook-handler] [trace_id=tr-wh-402] StripeSignatureVerificationError: Signature verification failed.
+2026-10-14 09:17:10.000 [WARN] [stripe-gateway] Webhook retry rate exceeded 50 req/min from IP 54.187.174.169
+2026-10-14 10:00:00.000 [INFO] [notification-service] Synchronized host clock with pool.ntp.org. Clock drift corrected (-420s).
+2026-10-14 10:30:00.000 [INFO] [payment-webhook-handler] Webhook signature verified successfully for event evt_3N829110
+2026-10-14 11:30:00.000 [INFO] [stripe-gateway] Webhook processing healthy. 0 verification errors in last 60 minutes.

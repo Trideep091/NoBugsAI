@@ -1,0 +1,16 @@
+2026-10-14 08:00:00.000 [INFO] [batch-etl-worker] Started batch processor worker-04. Max heap configured: 2048MB
+2026-10-14 08:30:00.000 [INFO] [queue-consumer] Polling work queue 'export-jobs'
+2026-10-14 09:00:10.000 [INFO] [batch-etl-worker] Dequeued job export_all_transactions_2026. Target payload size: 8.4GB
+2026-10-14 09:15:00.000 [WARN] [batch-etl-worker] JVM Heap usage exceeded 85% (1740MB / 2048MB). Initiating GC sweep.
+2026-10-14 09:20:00.000 [WARN] [batch-etl-worker] Full GC paused execution for 4210ms. Reclaimed 18MB.
+2026-10-14 09:25:12.441 [ERROR] [batch-etl-worker] java.lang.OutOfMemoryError: Java heap space
+Traceback (most recent call last):
+  at java.util.Arrays.copyOf(Arrays.java:3210)
+  at java.util.ArrayList.grow(ArrayList.java:265)
+  at java.util.ArrayList.add(ArrayList.java:462)
+  at com.nobugs.etl.TransactionAggregator.bufferAll(TransactionAggregator.java:182)
+java.lang.OutOfMemoryError: Java heap space
+2026-10-14 09:25:15.000 [CRITICAL] [queue-consumer] Worker process worker-04 died unexpectedly (Exit code 137 OOMKilled)
+2026-10-14 09:30:00.000 [WARN] [queue-consumer] Re-queueing incomplete job export_all_transactions_2026 to dead-letter queue
+2026-10-14 10:00:00.000 [INFO] [queue-consumer] Spawned replacement worker worker-05 with streaming pagination enabled
+2026-10-14 11:30:00.000 [INFO] [batch-etl-worker] Chunked export completed in 1000-record pages. Heap usage steady at 320MB
