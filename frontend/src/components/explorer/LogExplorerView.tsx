@@ -12,6 +12,7 @@ import {
   Brain,
   Sparkles,
 } from "lucide-react";
+import { api } from "../../services/api";
 import type { LogEvent, LogFile } from "../../types";
 
 interface LogExplorerViewProps {
@@ -43,21 +44,17 @@ export const LogExplorerView: React.FC<LogExplorerViewProps> = ({
   const fetchEvents = async () => {
     setLoading(true);
     try {
-      const query = new URLSearchParams();
-      query.set("page", String(page));
-      query.set("limit", "50");
-      if (search) query.set("search", search);
-      if (selectedLevel !== "ALL") query.set("level", selectedLevel);
-      if (errorsOnly) query.set("is_error", "true");
-      if (fileFilter) query.set("file_id", fileFilter);
-      if (incidentFilter) query.set("incident_id", incidentFilter);
-
-      const res = await fetch(`/api/logs/events?${query.toString()}`);
-      if (res.ok) {
-        const data = await res.json();
-        setEvents(data.items);
-        setTotal(data.total);
-      }
+      const data = await api.getLogEvents({
+        page,
+        limit: 50,
+        search: search || undefined,
+        level: selectedLevel !== "ALL" ? selectedLevel : undefined,
+        is_error: errorsOnly ? true : undefined,
+        file_id: fileFilter || undefined,
+        incident_id: incidentFilter || undefined,
+      });
+      setEvents(data.items);
+      setTotal(data.total);
     } catch {
       // ignore
     } finally {

@@ -13,6 +13,7 @@ import {
   FileText,
   Activity,
 } from "lucide-react";
+import { api } from "../../services/api";
 import type { IngestionResult, LogFile } from "../../types";
 
 interface IngestionViewProps {
@@ -60,20 +61,7 @@ export const IngestionView: React.FC<IngestionViewProps> = ({
     setLoading(true);
     setError(null);
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-
-      const response = await fetch("/api/logs/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.detail || data.message || `Upload failed with status ${response.status}`);
-      }
-
-      const result: IngestionResult = await response.json();
+      const result = await api.uploadLogFile(file);
       setLatestResult(result);
       onUploadSuccess(result);
     } catch (err: any) {
@@ -91,21 +79,10 @@ export const IngestionView: React.FC<IngestionViewProps> = ({
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/logs/paste", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          content: pasteContent,
-          filename: pastedFilename || "pasted_logs.log",
-        }),
-      });
-
-      if (!response.ok) {
-        const data = await response.json().catch(() => ({}));
-        throw new Error(data.detail || data.message || `Processing failed with status ${response.status}`);
-      }
-
-      const result: IngestionResult = await response.json();
+      const result = await api.pasteLogContent(
+        pasteContent,
+        pastedFilename || "pasted_logs.log"
+      );
       setLatestResult(result);
       onUploadSuccess(result);
     } catch (err: any) {
