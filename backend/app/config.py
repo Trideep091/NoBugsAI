@@ -10,7 +10,11 @@ class Settings(BaseSettings):
     DEBUG: bool = False
     
     # Database
-    DATABASE_URL: str = "sqlite:///./nobugs.db"
+    DATABASE_URL: str = (
+        "sqlite:////tmp/nobugs.db"
+        if (os.environ.get("VERCEL") or os.environ.get("AWS_LAMBDA_FUNCTION_NAME"))
+        else "sqlite:///./nobugs.db"
+    )
     
     # AI Layer (Local Ollama)
     OLLAMA_BASE_URL: str = "http://127.0.0.1:11434"

@@ -1,0 +1,19 @@
+{
+  "name": "nobugs-ai-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "NoBugs AI - Intelligent Log Investigation & Root-Cause Analysis Platform",
+  "scripts": {
+    "build": "cd frontend && npm install && npm run build",
+    "dev": "cd frontend && npm run dev",
+    "preview": "cd frontend && npm run preview"
+  },
+  "keywords": [
+    "ai",
+    "log-analysis",
+    "incident-investigation",
+    "sre"
+  ],
+  "author": "Trideep",
+  "license": "MIT"
+}
