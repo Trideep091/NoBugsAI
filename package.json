@@ -4,7 +4,7 @@
   "private": true,
   "description": "NoBugs AI - Intelligent Log Investigation & Root-Cause Analysis Platform",
   "scripts": {
-    "build": "cd frontend && npm install && npm run build",
+    "build": "cd frontend && npm install && npm run build && cd .. && rm -rf dist && cp -r frontend/dist ./dist",
     "dev": "cd frontend && npm run dev",
     "preview": "cd frontend && npm run preview"
   },
